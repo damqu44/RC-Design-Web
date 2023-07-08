@@ -31,11 +31,21 @@ const ItemsList = (props) => {
   }
 
   // Sorting logic
-  const sortedItems = [...props.items].sort((a, b) =>
-    sortOrder === 'asc'
-      ? a[sortedColumn] - b[sortedColumn]
-      : b[sortedColumn] - a[sortedColumn]
-  )
+  const sortedItems = [...props.items].sort((a, b) => {
+    if (sortOrder === 'asc') {
+      if (sortedColumn === 'itemAmount') {
+        return a[sortedColumn] - b[sortedColumn]
+      } else {
+        return a[sortedColumn].localeCompare(b[sortedColumn])
+      }
+    } else {
+      if (sortedColumn === 'itemAmount') {
+        return b[sortedColumn] - a[sortedColumn]
+      } else {
+        return b[sortedColumn].localeCompare(a[sortedColumn])
+      }
+    }
+  })
 
   let itemsToRender = sortedItems
   return (
