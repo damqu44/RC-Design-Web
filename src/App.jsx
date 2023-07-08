@@ -1,4 +1,4 @@
-import classes from './app.module.css'
+import classes from './App.module.css'
 
 import AddItem from './Components/AddItem'
 import AuthForm from './Components/Auth/AuthForm'
