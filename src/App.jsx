@@ -1,5 +1,7 @@
 import classes from './App.module.css'
 
+import { BeatLoader } from 'react-spinners'
+
 import AddItem from './Components/AddItem'
 import AuthForm from './Components/Auth/AuthForm'
 import { AuthContext } from './Components/Context/AuthContext'
@@ -89,7 +91,7 @@ function App() {
     fetchItemsHandler()
   }
 
-  let content = <p className={classes.content}>Found no movies.</p>
+  let content = <p className={classes.content}>Brak danych..</p>
 
   if (items.length > 0) {
     content = <ItemsList items={items} onItemDelete={deleteItemHandler} />
@@ -100,7 +102,11 @@ function App() {
   }
 
   if (isLoading) {
-    content = <p className={classes.content}>Loading...</p>
+    content = (
+      <p className={classes.content}>
+        <BeatLoader color='#000000' size={25} loading={true} />
+      </p>
+    )
   }
   return (
     <div className={classes.container}>
