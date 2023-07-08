@@ -1,0 +1,49 @@
+.li {
+  width: 1800px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+ul li h5 {
+  text-align: center;
+  font-size: 1em;
+  width: 300px;
+  word-break: break-all;
+  overflow: hidden;
+  position: relative;
+}
+
+.item_delete-button {
+  position: absolute;
+  right: 5%;
+  font-size: 1em;
+  padding: 5px 15px;
+  border-radius: 15px;
+  border: none;
+  color: rgb(199, 21, 133);
+  transition: transform 0.5s ease-in-out, font-weight 0.5s ease-in-out,
+    color 0.5s ease-in-out;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+}
+
+.item_delete-button:hover {
+  cursor: pointer;
+  transform: scale(0.9);
+  color: rgb(255, 0, 0);
+  font-weight: bold;
+}
+
+.item_delete-button:focus {
+  outline: none;
+}
+
+.line {
+  width: 1800px;
+  border-top: 1px solid #fff;
+  margin: 40px 0;
+  box-shadow: 0px 3px 10px rgba(255, 255, 255, 0.7);
+}
