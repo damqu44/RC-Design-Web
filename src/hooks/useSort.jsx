@@ -5,7 +5,7 @@ const useSort = (items, initialSortColumn) => {
   const [sortedItems, setSortedItems] = useState([])
   const [searchedItems, setSearchedItems] = useState([])
   const [sortColumn, setSortColumn] = useState(initialSortColumn)
-  const [sortOrder, setSortOrder] = useState('asc')
+  const [sortOrder, setSortOrder] = useState('desc')
   const searchValue = useSelector((state) => state.searchValue)
 
   useEffect(() => {
