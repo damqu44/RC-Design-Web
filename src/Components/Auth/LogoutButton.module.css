@@ -8,9 +8,11 @@
   font-size: 1.3em;
   transition: color 0.4s ease-in-out;
   padding: 5px 20px;
+  color: rgb(245, 245, 245);
+  outline: none;
 }
 
 .logout-button:hover {
   cursor: pointer;
-  color: goldenrod;
+  color: rgb(217, 165, 32);
 }

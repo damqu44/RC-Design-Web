@@ -1,9 +1,6 @@
 .logo {
   width: auto;
   height: 40px;
-}
-
-.logo {
   margin: 10px 30px;
 }
 
@@ -13,7 +10,20 @@
   align-items: center;
   justify-content: space-between;
   height: 66px;
-  z-index: 5;
+  z-index: 10;
   background-color: rgb(24, 24, 24);
   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+
+.searchInput {
+  padding: 10px 20px;
+  min-width: 100px;
+  max-width: 250px;
+  width: 15%;
+  font-size: 1.2em;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  text-decoration: none;
 }

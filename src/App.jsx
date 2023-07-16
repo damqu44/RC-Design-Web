@@ -1,126 +1,48 @@
-import classes from './App.module.css'
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Route,
+  createRoutesFromElements,
+  useNavigation,
+  Outlet,
+} from 'react-router-dom'
 
-import { BeatLoader } from 'react-spinners'
+import HomePage from './Pages/Home'
+import SearchedItemsPage from './Pages/SearchedItems'
+import ErrorPage from './Pages/Error'
 
-import AddItem from './Components/AddItem'
-import AuthForm from './Components/Auth/AuthForm'
-import { AuthContext } from './Components/Context/AuthContext'
-import Header from './Components/Header'
-import ItemsList from './Components/ItemsList'
-
-import { useEffect, useState, useCallback, useContext } from 'react'
+import Header from './Components/UI/Header'
+import { Provider } from 'react-redux'
+import store from './store/store'
 
 function App() {
-  const [items, setItems] = useState([])
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState(null)
-  const { isLogged } = useContext(AuthContext)
-
-  const fetchItemsHandler = useCallback(async () => {
-    setIsLoading(true)
-    setError(null)
-
-    try {
-      const response = await fetch(
-        'https://rc-design-29794-default-rtdb.europe-west1.firebasedatabase.app/items.json'
-      )
-      if (!response.ok) {
-        throw new Error('Error!')
-      }
-
-      const data = await response.json()
-
-      const loadedItems = []
-
-      for (const key in data) {
-        loadedItems.push({
-          id: key,
-          userName: data[key].userName,
-          userLastName: data[key].userLastName,
-          itemName: data[key].itemName,
-          itemAmount: Number(data[key].itemAmount),
-          project: data[key].project,
-          date: data[key].date,
-        })
-      }
-
-      setItems(loadedItems)
-    } catch (error) {
-      setError(error.message)
-    }
-    setIsLoading(false)
-  }, [])
-
-  useEffect(() => {
-    fetchItemsHandler()
-  }, [fetchItemsHandler])
-
-  async function deleteItemHandler(itemId) {
-    try {
-      const response = await fetch(
-        `https://rc-design-29794-default-rtdb.europe-west1.firebasedatabase.app/items/${itemId}.json`,
-        {
-          method: 'DELETE',
-        }
-      )
-      if (!response.ok) {
-        throw new Error('Error deleting item!')
-      }
-
-      fetchItemsHandler()
-    } catch (error) {
-      setError(error.message)
-    }
-  }
-
-  async function addItemHandler(item) {
-    const response = await fetch(
-      'https://rc-design-29794-default-rtdb.europe-west1.firebasedatabase.app/items.json',
-      {
-        method: 'POST',
-        body: JSON.stringify(item),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route path='/' element={<Root />}>
+        <Route index element={<HomePage />} />
+        <Route path='/SearchedItems' element={<SearchedItemsPage />} />
+        <Route path='*' element={<ErrorPage />} />
+      </Route>
     )
-
-    const data = await response.json()
-    console.log(data)
-
-    fetchItemsHandler()
-  }
-
-  let content = <p className={classes.content}>Brak danych..</p>
-
-  if (items.length > 0) {
-    content = <ItemsList items={items} onItemDelete={deleteItemHandler} />
-  }
-
-  if (error) {
-    content = <p className={classes.content}>{error}</p>
-  }
-
-  if (isLoading) {
-    content = (
-      <p className={classes.content}>
-        <BeatLoader color='#000000' size={25} loading={true} />
-      </p>
-    )
-  }
+  )
   return (
-    <div className={classes.container}>
-      <Header />
-      {isLogged ? (
-        <>
-          <AddItem onAddItem={addItemHandler} />
-          <>{content}</>
-        </>
-      ) : (
-        <AuthForm />
-      )}
-    </div>
+    <>
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
+    </>
   )
 }
 
 export default App
+
+const Root = () => {
+  const navigation = useNavigation()
+  return (
+    <div>
+      {navigation.state === 'loading' && <div>XD</div>}
+      <Header />
+      <Outlet />
+    </div>
+  )
+}

@@ -35,7 +35,7 @@ Item.propTypes = {
   userName: PropTypes.string.isRequired,
   userLastName: PropTypes.string.isRequired,
   itemName: PropTypes.string.isRequired,
-  itemAmount: PropTypes.number.isRequired,
+  itemAmount: PropTypes.string.isRequired,
   project: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   onItemDelete: PropTypes.func.isRequired,

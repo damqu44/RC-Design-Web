@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { AuthContext } from '../Context/AuthContext'
+import { AuthContext } from '../../Context/AuthContext'
 import classes from './LogoutButton.module.css'
 
 const LogoutButton = () => {
