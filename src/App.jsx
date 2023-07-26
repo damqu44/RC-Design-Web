@@ -40,7 +40,7 @@ const Root = () => {
   const navigation = useNavigation()
   return (
     <div>
-      {navigation.state === 'loading' && <div>XD</div>}
+      {navigation.state === 'loading' && <div>loading</div>}
       <Header />
       <Outlet />
     </div>

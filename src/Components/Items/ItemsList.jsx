@@ -1,11 +1,17 @@
 import PropTypes from 'prop-types'
 import useSort from '../../hooks/useSort'
 import Item from './Item'
+import Button from '../UI/Button'
 import classes from './ItemsList.module.css'
 
 import { useSelector } from 'react-redux'
+import { useState } from 'react'
+
+const itemsPerPage = 100
 
 const ItemsList = (props) => {
+  const [renderedItems, setRenderedItems] = useState(itemsPerPage)
+
   const {
     searchedItems,
     sortedItems,
@@ -27,6 +33,13 @@ const ItemsList = (props) => {
     { columnName: 'project', displayName: 'Projekt' },
     { columnName: 'date', displayName: 'Data' },
   ]
+
+  const handleLoadMore = () => {
+    setRenderedItems((prevRenderedItems) => prevRenderedItems + itemsPerPage)
+  }
+
+  const itemsToShow = searchValue ? searchedItems : sortedItems
+  const renderedItemsList = itemsToShow.slice(0, renderedItems)
 
   return (
     <>
@@ -54,34 +67,25 @@ const ItemsList = (props) => {
         <div className={classes.line}></div>
 
         {/* Item rows */}
-        {searchValue
-          ? searchedItems.map((item) => (
-              <Item
-                key={item.id}
-                id={item.id}
-                userName={item.userName}
-                userLastName={item.userLastName}
-                itemName={item.itemName}
-                itemAmount={item.itemAmount}
-                project={item.project}
-                date={item.date}
-                onItemDelete={props.onItemDelete}
-              />
-            ))
-          : sortedItems.map((item) => (
-              <Item
-                key={item.id}
-                id={item.id}
-                userName={item.userName}
-                userLastName={item.userLastName}
-                itemName={item.itemName}
-                itemAmount={item.itemAmount}
-                project={item.project}
-                date={item.date}
-                onItemDelete={props.onItemDelete}
-              />
-            ))}
+        {renderedItemsList.map((item) => (
+          <Item
+            key={item.id}
+            id={item.id}
+            userName={item.userName}
+            userLastName={item.userLastName}
+            itemName={item.itemName}
+            itemAmount={item.itemAmount}
+            project={item.project}
+            date={item.date}
+            onItemDelete={props.onItemDelete}
+          />
+        ))}
       </ul>
+      <div className={classes['load-button__section']}>
+        {renderedItems < itemsToShow.length && (
+          <Button handleFunction={handleLoadMore} label='Załaduj więcej' />
+        )}
+      </div>
     </>
   )
 }

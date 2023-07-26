@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 
 import classes from './AddItem.module.css'
 
+import Button from '../UI/Button'
+
 const AddItem = (props) => {
   const [currentDate, setCurrentDate] = useState('')
   const userNameRef = useRef('')
@@ -101,7 +103,7 @@ const AddItem = (props) => {
         />
       </div>
 
-      <button type='submit'>Dodaj</button>
+      <Button label='Dodaj' type='submit' />
     </form>
   )
 }

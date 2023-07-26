@@ -16,11 +16,13 @@ const LogoutButton = () => {
 
   return (
     <>
-      {isLogged ? (
-        <button onClick={handleLogout} className={classes['logout-button']}>
-          Wyloguj
-        </button>
-      ) : null}
+      <div className={classes['blank-section']}>
+        {isLogged ? (
+          <button onClick={handleLogout} className={classes['logout-button']}>
+            Wyloguj
+          </button>
+        ) : null}
+      </div>
     </>
   )
 }

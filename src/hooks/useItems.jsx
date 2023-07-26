@@ -65,7 +65,6 @@ const useItems = () => {
       )
 
       const data = await response.json()
-      console.log(data)
 
       setItems((prevItems) => [
         ...prevItems,
