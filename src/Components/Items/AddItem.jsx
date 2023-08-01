@@ -43,7 +43,6 @@ const AddItem = (props) => {
   return (
     <form onSubmit={submitHandler} className={classes['addItem-form']}>
       <div>
-        <h1>Imię</h1>
         <input
           type='text'
           id='userName'
@@ -53,7 +52,6 @@ const AddItem = (props) => {
         />
       </div>
       <div>
-        <h1>Nazwisko</h1>
         <input
           type='text'
           id='userLastName'
@@ -63,7 +61,6 @@ const AddItem = (props) => {
         />
       </div>
       <div>
-        <h1>Przedmiot</h1>
         <input
           type='text'
           id='itemName'
@@ -73,7 +70,6 @@ const AddItem = (props) => {
         />
       </div>
       <div>
-        <h1>Ilość</h1>
         <input
           type='number'
           id='itemAmount'
@@ -83,7 +79,6 @@ const AddItem = (props) => {
         />
       </div>
       <div>
-        <h1>Projekt</h1>
         <input
           type='text'
           id='project'
@@ -93,7 +88,6 @@ const AddItem = (props) => {
         />
       </div>
       <div>
-        <h1>Data</h1>
         <input
           type='date'
           id='date'
