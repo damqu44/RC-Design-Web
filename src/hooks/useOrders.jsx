@@ -20,10 +20,20 @@ const useOrders = () => {
 
       const data = await response.json()
 
-      const loadedOrders = Object.keys(data).map((key) => ({
-        id: key,
-        ...data[key],
-      }))
+      const loadedOrders = Object.keys(data).map((key) => {
+        const orderData = data[key]
+        const trimmedOrderData = {
+          id: key,
+          companyName: orderData.companyName.trim(),
+          orderName: orderData.orderName.trim(),
+          purchaserName: orderData.purchaserName.trim(),
+          purchaseDate: orderData.purchaseDate,
+          project: orderData.project.trim(),
+          isInvoice: orderData.isInvoice,
+          isArrived: orderData.isArrived,
+        }
+        return trimmedOrderData
+      })
 
       setOrders(loadedOrders)
     } catch (error) {

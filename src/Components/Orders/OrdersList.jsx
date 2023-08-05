@@ -3,14 +3,21 @@ import PropTypes from 'prop-types'
 import Order from './Order'
 import Button from '../UI/Button'
 import classes from './OrdersList.module.css'
+import useSort from '../../hooks/useSort'
+import { setSearchValue } from '../../actions/actions'
 
 const ordersPerPage = 100
 
 const OrdersList = (props) => {
   const [renderedOrders, setRenderedOrders] = useState(ordersPerPage)
-  const { orders } = props
 
-  const sortedOrders = [...orders].reverse()
+  const {
+    searchedItems,
+    sortedItems,
+    sortColumn,
+    sortOrder,
+    handleSortColumn,
+  } = useSort(props.orders, 'purchaseDate')
 
   const headers = [
     { columnName: 'companyName', displayName: 'Firma' },
@@ -28,6 +35,9 @@ const OrdersList = (props) => {
     )
   }
 
+  //to fix
+  const ordersToshow = setSearchValue ? searchedItems : sortedItems
+
   const handleIsArrivedChange = (orderId, newValue) => {
     // Call the function passed from parent component to update isArrived property
     props.onIsArrivedChange(orderId, newValue)
@@ -38,7 +48,7 @@ const OrdersList = (props) => {
     props.onIsInvoiceChange(orderId, newValue)
   }
 
-  const renderedOrdersList = sortedOrders.slice(0, renderedOrders)
+  const renderedOrdersList = ordersToshow.slice(0, renderedOrders)
 
   console.log('LIST', renderedOrdersList)
 
@@ -49,9 +59,19 @@ const OrdersList = (props) => {
           {headers.map((header) => (
             <h2
               key={header.columnName}
-              className={classes['order-columnHeader']}
+              className={`${classes['order-columnHeader']} ${
+                sortColumn === header.columnName && sortOrder !== 'none'
+                  ? classes.active
+                  : ''
+              }`}
+              onClick={() => handleSortColumn(header.columnName)}
             >
               <span>{header.displayName}</span>
+              {sortColumn === header.columnName && (
+                <span className={classes.sortIndicator}>
+                  {sortOrder === 'asc' ? '▲' : '▼'}
+                </span>
+              )}
             </h2>
           ))}
         </li>

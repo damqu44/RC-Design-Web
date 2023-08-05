@@ -34,6 +34,8 @@ textarea {
   width: 70%;
   padding: 13px 10px;
   outline: none;
+  font-size: 1em;
+  text-align: center;
 }
 
 .addOrder-form textarea {
